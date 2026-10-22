@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sinais de Imunidade: A Jornada de Lucas</title>
+    <meta name="description" content="Jogo narrativo interativo 2D com movimentação WASD sobre conscientização da vacinação contra o sarampo e combate à desinformação.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="game-wrapper">
+        <!-- 2D Canvas Viewport -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Dynamic In-World Interaction Indicator -->
+        <div id="interaction-prompt">
+            <span class="prompt-key">E</span>
+            <span class="prompt-text">Interagir</span>
+        </div>
+
+        <!-- Overlays Layer -->
+        <div class="ui-overlay">
+            
+            <!-- Top HUD -->
+            <div id="hud-top">
+                <div class="hud-left">
+                    <div class="hud-objective-card">
+                        <div class="objective-pulse"></div>
+                        <span id="hud-objective-text">Carregando objetivo...</span>
+                    </div>
+                </div>
+
+                <div class="hud-right">
+                    <div class="hud-indicators-card">
+                        <div class="indicator-row">
+                            <span class="indicator-label">🧠 Conhecimento</span>
+                            <div class="indicator-meter">
+                                <div id="bar-knowledge" class="meter-fill fill-blue" style="width: 30%;"></div>
+                            </div>
+                            <span id="val-knowledge" class="indicator-val">3/10</span>
+                        </div>
+
+                        <div class="indicator-row">
+                            <span class="indicator-label">🔍 Checagem de Fatos</span>
+                            <div class="indicator-meter">
+                                <div id="bar-verification" class="meter-fill fill-purple" style="width: 20%;"></div>
+                            </div>
+                            <span id="val-verification" class="indicator-val">2/10</span>
+                        </div>
+
+                        <div class="indicator-row">
+                            <span class="indicator-label">🤝 Influência Positiva</span>
+                            <div class="indicator-meter">
+                                <div id="bar-influence" class="meter-fill fill-amber" style="width: 30%;"></div>
+                            </div>
+                            <span id="val-influence" class="indicator-val">3/10</span>
+                        </div>
+
+                        <div class="indicator-row">
+                            <span class="indicator-label">💉 Situação Vacinal:</span>
+                            <span id="val-vaccine-status" class="status-badge status-pending">⏳ Não Conferida</span>
+                        </div>
+
+                        <div class="hud-buttons-row">
+                            <button id="btn-audio-toggle" class="hud-btn" title="Ligar/Desligar Música e Efeitos">🔊 Áudio ON</button>
+                            <button id="btn-about" class="hud-btn" title="Controles e Sobre">ℹ️ Guia</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Virtual On-screen D-Pad for Mobile / Accessibility -->
+            <div id="virtual-controls">
+                <button class="vpad-btn" id="vbtn-up" onmousedown="window.game.engine.keys.w=true" onmouseup="window.game.engine.keys.w=false" ontouchstart="window.game.engine.keys.w=true" ontouchend="window.game.engine.keys.w=false">W</button>
+                <div class="vpad-row">
+                    <button class="vpad-btn" id="vbtn-left" onmousedown="window.game.engine.keys.a=true" onmouseup="window.game.engine.keys.a=false" ontouchstart="window.game.engine.keys.a=true" ontouchend="window.game.engine.keys.a=false">A</button>
+                    <button class="vpad-btn" id="vbtn-down" onmousedown="window.game.engine.keys.s=true" onmouseup="window.game.engine.keys.s=false" ontouchstart="window.game.engine.keys.s=true" ontouchend="window.game.engine.keys.s=false">S</button>
+                    <button class="vpad-btn" id="vbtn-right" onmousedown="window.game.engine.keys.d=true" onmouseup="window.game.engine.keys.d=false" ontouchstart="window.game.engine.keys.d=true" ontouchend="window.game.engine.keys.d=false">D</button>
+                </div>
+            </div>
+
+            <!-- Toast Alert Notification -->
+            <div id="game-toast" class="hidden"></div>
+
+            <!-- Visual Novel Dialogue Overlay -->
+            <div id="dialogue-box" class="hidden">
+                <div class="dialogue-portrait-wrapper">
+                    <img id="dialogue-portrait" src="assets/portraits/lucas_feliz.png" alt="Retrato do Personagem">
+                </div>
+                <div class="dialogue-content">
+                    <div class="dialogue-header">
+                        <span id="dialogue-name">Lucas</span>
+                        <span id="dialogue-role">Protagonista</span>
+                    </div>
+                    <div id="dialogue-text">...</div>
+                    <div id="dialogue-choices"></div>
+                    <div class="dialogue-footer-hint">Pressione [Espaço] ou clique para avançar ▸</div>
+                </div>
+            </div>
+
+            <!-- Chapter Transition Card -->
+            <div id="chapter-transition-card" class="hidden">
+                <h1 id="trans-title">Capítulo 1</h1>
+                <p id="trans-sub">A Mensagem no Grupo</p>
+            </div>
+
+            <!-- Smartphone Simulator Modal (ConectaZap) -->
+            <div id="phone-modal" class="modal-overlay hidden">
+                <div class="phone-device">
+                    <div class="phone-notch">
+                        <span>21:44</span>
+                        <span>📶 4G • 🔋 84%</span>
+                    </div>
+                    <div class="phone-app-header">
+                        <div class="phone-app-avatar">👥</div>
+                        <div class="phone-app-info">
+                            <h3 id="phone-sender">Turma da Faculdade</h3>
+                            <p>Marina, Raphael, Lucas e outros 32 membros</p>
+                        </div>
+                    </div>
+                    <div class="phone-chat-body">
+                        <div class="phone-bubble">
+                            <div class="phone-bubble-sender">Marina</div>
+                            <div class="phone-bubble-warning">
+                                ⚠️ Encaminhada com frequência • Sem fonte oficial
+                            </div>
+                            <div id="phone-bubble-text">
+                                “Gente, vocês viram isso?! Me mandaram essa mensagem dizendo que a vacina contra o sarampo é perigosa. Fiquei na dúvida e resolvi compartilhar...”
+                            </div>
+                            <div id="phone-time" class="phone-bubble-time">21:44 ✓✓</div>
+                        </div>
+                    </div>
+                    <div class="phone-choices-section">
+                        <span class="phone-choice-title">Como Lucas deve reagir?</span>
+                        <div id="phone-choices-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- "O Que Você Descobriu?" Educational Modal -->
+            <div id="did-you-know-modal" class="modal-overlay hidden">
+                <div class="edu-card">
+                    <div class="edu-header">
+                        <div class="edu-icon">🩺</div>
+                        <div>
+                            <h2 id="did-you-know-title">O que você descobriu?</h2>
+                            <p style="color: #94a3b8; font-size: 0.85rem;">Conhecimento científico para a saúde coletiva</p>
+                        </div>
+                    </div>
+                    <ul id="did-you-know-list" class="edu-list"></ul>
+                    <div id="did-you-know-source" class="edu-source">Fonte: Ministério da Saúde</div>
+                    <button id="btn-continue-chapter" class="btn-primary">Continuar Próximo Capítulo ▸</button>
+                </div>
+            </div>
+
+            <!-- About / Controls Modal -->
+            <div id="about-modal" class="modal-overlay hidden">
+                <div class="about-box">
+                    <h2>Guia de Jogo & Controles</h2>
+                    <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5;">
+                        <strong>Sinais de Imunidade</strong> é um jogo narrativo onde você controla <strong>Lucas</strong>, um estudante universitário de 21 anos. Suas decisões influenciam amigos, familiares e sua própria proteção de saúde.
+                    </p>
+
+                    <div class="controls-guide-grid">
+                        <span class="key-badge">W A S D</span>
+                        <span>Mover Lucas pelo cenário (cima, esquerda, baixo, direita)</span>
+                        <span class="key-badge">Setas ⬆️⬅️⬇️➡️</span>
+                        <span>Movimentação alternativa</span>
+                        <span class="key-badge">Tecla E</span>
+                        <span>Interagir com personagens e objetos ao se aproximar</span>
+                        <span class="key-badge">Espaço / Clique</span>
+                        <span>Avançar diálogos e escolher opções</span>
+                    </div>
+
+                    <p style="font-size: 0.82rem; color: #94a3b8;">
+                        Inspirado no estilo narrativo de <em>A Vida é um Jogo</em>, com ilustrações exclusivas, cenários brasileiros cotidianos e fundamentação científica oficial do Ministério da Saúde.
+                    </p>
+                    <button id="btn-close-about" class="btn-primary" style="margin-top: 8px;">Entendi, voltar ao jogo</button>
+                </div>
+            </div>
+
+            <!-- Main Menu Screen -->
+            <div id="menu-screen">
+                <div class="menu-overlay-grad"></div>
+                <div class="menu-content">
+                    <span class="menu-badge">Experiência Narrativa Interativa</span>
+                    <h1 class="menu-title">SINAIS DE IMUNIDADE</h1>
+                    <p class="menu-subtitle">A Jornada de Lucas contra a desinformação e em defesa da saúde coletiva.</p>
+                    <div class="menu-actions">
+                        <button id="btn-start-game" class="btn-menu-start">▶ Iniciar Jornada</button>
+                        <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 8px;">Controles: Use <strong>[W A S D]</strong> para andar e <strong>[E]</strong> para interagir</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ending Screen -->
+            <div id="ending-screen" class="hidden">
+                <div class="ending-container">
+                    <span id="ending-badge" class="ending-badge">FINAL ALCANÇADO</span>
+                    <h1 id="ending-title" class="ending-title">FINAL</h1>
+                    <blockquote id="ending-quote" class="ending-quote"></blockquote>
+                    <p id="ending-desc" class="ending-desc"></p>
+
+                    <div>
+                        <h3 style="font-family: var(--font-heading); color: #fff; margin-bottom: 10px;">Suas Conquistas Narrativas:</h3>
+                        <ul id="ending-learnings-list" class="edu-list"></ul>
+                    </div>
+
+                    <div class="ending-stats-grid">
+                        <div class="stat-box">
+                            <span>Conhecimento:</span>
+                            <strong id="final-knowledge">8 / 10</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Hábito de Checagem:</span>
+                            <strong id="final-verification">9 / 10</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Influência Positiva:</span>
+                            <strong id="final-influence">8 / 10</strong>
+                        </div>
+                        <div class="stat-box">
+                            <span>Caderneta Vacinal:</span>
+                            <strong id="final-vaccine-status">Conferida na UBS</strong>
+                        </div>
+                    </div>
+
+                    <div class="ending-references">
+                        <h3>Fontes Oficiais Consultadas:</h3>
+                        <div id="official-references-container"></div>
+                    </div>
+
+                    <button id="btn-restart-game" class="btn-primary" style="margin-top: 10px;">🔄 Jogar Novamente (Explorar Outros Caminhos)</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/audio.js"></script>
+    <script src="js/story.js"></script>
+    <script src="js/engine.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
