@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Sinais de Imunidade: A Jornada de Lucas</title>
-    <meta name="description" content="Jogo narrativo interativo 2D com movimentação WASD sobre conscientização da vacinação contra o sarampo e combate à desinformação.">
+    <meta name="description"
+        content="Jogo narrativo interativo 2D com movimentação WASD sobre conscientização da vacinação contra o sarampo e combate à desinformação.">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
     <div id="game-wrapper">
@@ -21,7 +24,7 @@
 
         <!-- Overlays Layer -->
         <div class="ui-overlay">
-            
+
             <!-- Top HUD -->
             <div id="hud-top">
                 <div class="hud-left">
@@ -63,7 +66,8 @@
                         </div>
 
                         <div class="hud-buttons-row">
-                            <button id="btn-audio-toggle" class="hud-btn" title="Ligar/Desligar Música e Efeitos">🔊 Áudio ON</button>
+                            <button id="btn-audio-toggle" class="hud-btn" title="Ligar/Desligar Música e Efeitos">🔊
+                                Áudio ON</button>
                             <button id="btn-about" class="hud-btn" title="Controles e Sobre">ℹ️ Guia</button>
                         </div>
                     </div>
@@ -72,11 +76,19 @@
 
             <!-- Virtual On-screen D-Pad for Mobile / Accessibility -->
             <div id="virtual-controls">
-                <button class="vpad-btn" id="vbtn-up" onmousedown="window.game.engine.keys.w=true" onmouseup="window.game.engine.keys.w=false" ontouchstart="window.game.engine.keys.w=true" ontouchend="window.game.engine.keys.w=false">W</button>
+                <button class="vpad-btn" id="vbtn-up" onmousedown="window.game.engine.keys.w=true"
+                    onmouseup="window.game.engine.keys.w=false" ontouchstart="window.game.engine.keys.w=true"
+                    ontouchend="window.game.engine.keys.w=false">W</button>
                 <div class="vpad-row">
-                    <button class="vpad-btn" id="vbtn-left" onmousedown="window.game.engine.keys.a=true" onmouseup="window.game.engine.keys.a=false" ontouchstart="window.game.engine.keys.a=true" ontouchend="window.game.engine.keys.a=false">A</button>
-                    <button class="vpad-btn" id="vbtn-down" onmousedown="window.game.engine.keys.s=true" onmouseup="window.game.engine.keys.s=false" ontouchstart="window.game.engine.keys.s=true" ontouchend="window.game.engine.keys.s=false">S</button>
-                    <button class="vpad-btn" id="vbtn-right" onmousedown="window.game.engine.keys.d=true" onmouseup="window.game.engine.keys.d=false" ontouchstart="window.game.engine.keys.d=true" ontouchend="window.game.engine.keys.d=false">D</button>
+                    <button class="vpad-btn" id="vbtn-left" onmousedown="window.game.engine.keys.a=true"
+                        onmouseup="window.game.engine.keys.a=false" ontouchstart="window.game.engine.keys.a=true"
+                        ontouchend="window.game.engine.keys.a=false">A</button>
+                    <button class="vpad-btn" id="vbtn-down" onmousedown="window.game.engine.keys.s=true"
+                        onmouseup="window.game.engine.keys.s=false" ontouchstart="window.game.engine.keys.s=true"
+                        ontouchend="window.game.engine.keys.s=false">S</button>
+                    <button class="vpad-btn" id="vbtn-right" onmousedown="window.game.engine.keys.d=true"
+                        onmouseup="window.game.engine.keys.d=false" ontouchstart="window.game.engine.keys.d=true"
+                        ontouchend="window.game.engine.keys.d=false">D</button>
                 </div>
             </div>
 
@@ -126,7 +138,8 @@
                                 ⚠️ Encaminhada com frequência • Sem fonte oficial
                             </div>
                             <div id="phone-bubble-text">
-                                “Gente, vocês viram isso?! Me mandaram essa mensagem dizendo que a vacina contra o sarampo é perigosa. Fiquei na dúvida e resolvi compartilhar...”
+                                “Gente, vocês viram isso?! Me mandaram essa mensagem dizendo que a vacina contra o
+                                sarampo é perigosa. Fiquei na dúvida e resolvi compartilhar...”
                             </div>
                             <div id="phone-time" class="phone-bubble-time">21:44 ✓✓</div>
                         </div>
@@ -145,7 +158,8 @@
                         <div class="edu-icon">🩺</div>
                         <div>
                             <h2 id="did-you-know-title">O que você descobriu?</h2>
-                            <p style="color: #94a3b8; font-size: 0.85rem;">Conhecimento científico para a saúde coletiva</p>
+                            <p style="color: #94a3b8; font-size: 0.85rem;">Conhecimento científico para a saúde coletiva
+                            </p>
                         </div>
                     </div>
                     <ul id="did-you-know-list" class="edu-list"></ul>
@@ -159,7 +173,9 @@
                 <div class="about-box">
                     <h2>Guia de Jogo & Controles</h2>
                     <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5;">
-                        <strong>Sinais de Imunidade</strong> é um jogo narrativo onde você controla <strong>Lucas</strong>, um estudante universitário de 21 anos. Suas decisões influenciam amigos, familiares e sua própria proteção de saúde.
+                        <strong>Sinais de Imunidade</strong> é um jogo narrativo onde você controla
+                        <strong>Lucas</strong>, um estudante universitário de 21 anos. Suas decisões influenciam amigos,
+                        familiares e sua própria proteção de saúde.
                     </p>
 
                     <div class="controls-guide-grid">
@@ -174,13 +190,15 @@
                     </div>
 
                     <p style="font-size: 0.82rem; color: #94a3b8;">
-                        Inspirado no estilo narrativo de <em>A Vida é um Jogo</em>, com ilustrações exclusivas, cenários brasileiros cotidianos e fundamentação científica oficial do Ministério da Saúde.
+                        Inspirado no estilo narrativo de <em>A Vida é um Jogo</em>, com ilustrações exclusivas, cenários
+                        brasileiros cotidianos e fundamentação científica oficial do Ministério da Saúde.
                     </p>
                     <div class="project-credits-box">
                         <span class="credits-label">👨‍💻 Desenvolvimento do Jogo:</span>
                         <p class="credits-author"><strong>Kauan</strong> — 6º Semestre de Ciência da Computação</p>
                     </div>
-                    <button id="btn-close-about" class="btn-primary" style="margin-top: 8px;">Entendi, voltar ao jogo</button>
+                    <button id="btn-close-about" class="btn-primary" style="margin-top: 8px;">Entendi, voltar ao
+                        jogo</button>
                 </div>
             </div>
 
@@ -190,10 +208,12 @@
                 <div class="menu-content">
                     <span class="menu-badge">Experiência Narrativa Interativa</span>
                     <h1 class="menu-title">SINAIS DE IMUNIDADE</h1>
-                    <p class="menu-subtitle">A Jornada de Lucas contra a desinformação e em defesa da saúde coletiva.</p>
+                    <p class="menu-subtitle">A Jornada de Lucas contra a desinformação e em defesa da saúde coletiva.
+                    </p>
                     <div class="menu-actions">
                         <button id="btn-start-game" class="btn-menu-start">▶ Iniciar Jornada</button>
-                        <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 8px;">Controles: Use <strong>[W A S D]</strong> para andar e <strong>[E]</strong> para interagir</p>
+                        <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 8px;">Controles: Use <strong>[W A S
+                                D]</strong> para andar e <strong>[E]</strong> para interagir</p>
                         <div class="menu-credits-badge">
                             Desenvolvido por <strong>Kauan</strong> • 6º Semestre Ciência da Computação
                         </div>
@@ -210,7 +230,8 @@
                     <p id="ending-desc" class="ending-desc"></p>
 
                     <div>
-                        <h3 style="font-family: var(--font-heading); color: #fff; margin-bottom: 10px;">Suas Conquistas Narrativas:</h3>
+                        <h3 style="font-family: var(--font-heading); color: #fff; margin-bottom: 10px;">Suas Conquistas
+                            Narrativas:</h3>
                         <ul id="ending-learnings-list" class="edu-list"></ul>
                     </div>
 
@@ -239,11 +260,12 @@
                     </div>
 
                     <div class="ending-credits-section">
-                        <h4>Desenvolvimento & Autoria:</h4>
+                        <h4>Desenvolvimento:</h4>
                         <p><strong>Kauan</strong> — 6º Semestre de Ciência da Computação</p>
                     </div>
 
-                    <button id="btn-restart-game" class="btn-primary" style="margin-top: 10px;">🔄 Jogar Novamente (Explorar Outros Caminhos)</button>
+                    <button id="btn-restart-game" class="btn-primary" style="margin-top: 10px;">🔄 Jogar Novamente
+                        (Explorar Outros Caminhos)</button>
                 </div>
             </div>
 
@@ -256,4 +278,5 @@
     <script src="js/engine.js"></script>
     <script src="js/game.js"></script>
 </body>
+
 </html>
