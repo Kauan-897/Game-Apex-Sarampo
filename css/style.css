@@ -1020,3 +1020,64 @@ body {
     font-size: 0.85rem;
     text-align: center;
 }
+
+/* Credits Styles */
+.menu-credits-badge {
+    margin-top: 14px;
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 8px 18px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.menu-credits-badge strong {
+    color: var(--primary);
+}
+
+.project-credits-box {
+    background: rgba(30, 41, 59, 0.5);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-top: 4px;
+    text-align: left;
+}
+
+.project-credits-box .credits-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 4px;
+}
+
+.project-credits-box .credits-author {
+    font-size: 0.9rem;
+    color: #f1f5f9;
+}
+
+.ending-credits-section {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 14px 18px;
+}
+
+.ending-credits-section h4 {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--primary);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ending-credits-section p {
+    font-size: 0.95rem;
+    color: #e2e8f0;
+}
