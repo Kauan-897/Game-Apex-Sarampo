@@ -421,12 +421,12 @@ const GAME_STORY = {
         cap2_marina: [
             {
                 speaker: "marina",
-                emotion: "preocupada",
+                emotion: "preocupado",
                 text: "Oi, Lucas! Viu a mensagem que eu mandei ontem à noite no grupo? Acordei pensando naquilo..."
             },
             {
                 speaker: "marina",
-                emotion: "pensativa",
+                emotion: "pensativo",
                 text: "Encontrei tanta gente falando coisas diferentes na internet que estou perdida. Não sei em quem acreditar!"
             },
             {
@@ -448,7 +448,7 @@ const GAME_STORY = {
                             },
                             {
                                 speaker: "marina",
-                                emotion: "preocupada",
+                                emotion: "preocupado",
                                 text: "Pois é... agora fico ainda mais confusa. Se você também acha isso, fico até com medo."
                             },
                             {
@@ -471,7 +471,7 @@ const GAME_STORY = {
                             },
                             {
                                 speaker: "marina",
-                                emotion: "pensativa",
+                                emotion: "pensativo",
                                 text: "É, pode ser... Mas fico com uma sensação ruim de não saber o que é verdade."
                             }
                         ]
@@ -494,7 +494,7 @@ const GAME_STORY = {
                             },
                             {
                                 speaker: "marina",
-                                emotion: "surpresa",
+                                emotion: "surpreso",
                                 text: "Puxa, Lucas! Você tem toda razão... Eu me assustei e repassei no impulso. Da próxima vez vou olhar primeiro o site oficial da saúde antes de espalhar."
                             },
                             {
@@ -550,7 +550,7 @@ const GAME_STORY = {
             },
             {
                 speaker: "camila",
-                emotion: "animada",
+                emotion: "animado",
                 text: "Que atitude excelente, Lucas! Muita gente acha que sarampo é doença só de criança, mas jovens adultos também precisam conferir se o esquema vacinal está em dia."
             },
             {
@@ -572,7 +572,7 @@ const GAME_STORY = {
                             },
                             {
                                 speaker: "camila",
-                                emotion: "preocupada",
+                                emotion: "preocupado",
                                 text: "Entendo seu ponto, Lucas, mas a vacina serve justamente para prevenir antes que o vírus chegue. Nossas portas estão sempre abertas se quiser voltar!"
                             }
                         ]
@@ -590,7 +590,7 @@ const GAME_STORY = {
                             },
                             {
                                 speaker: "camila",
-                                emotion: "pensativa",
+                                emotion: "pensativo",
                                 text: "Cuidado, Lucas! A situação vacinal é individual e médica. Seus seguidores não têm acesso ao seu prontuário ou histórico. O lugar certo para avaliar isso é aqui no serviço de saúde."
                             }
                         ]
@@ -613,7 +613,7 @@ const GAME_STORY = {
                             },
                             {
                                 speaker: "camila",
-                                emotion: "animada",
+                                emotion: "animado",
                                 text: "Você tomou uma dose quando era criança e aqui consta a segunda dose no reforço escolar! Sua caderneta está perfeitamente em dia contra o sarampo, caxumba e rubéola!"
                             },
                             {
@@ -636,12 +636,12 @@ const GAME_STORY = {
         cap4_ana: [
             {
                 speaker: "ana",
-                emotion: "preocupada",
+                emotion: "preocupado",
                 text: "Lucas... ainda bem que você chegou. Eu estou agoniada aqui no sofá olhando meu celular."
             },
             {
                 speaker: "ana",
-                emotion: "pensativa",
+                emotion: "pensativo",
                 text: "Começou a circular aquele texto sobre a vacina do sarampo... Fiquei com muito medo pelos nossos pais e por mim."
             },
             {
@@ -663,7 +663,7 @@ const GAME_STORY = {
                             },
                             {
                                 speaker: "ana",
-                                emotion: "preocupada",
+                                emotion: "preocupado",
                                 text: "Mas Lucas, como vou relaxar se todo mundo tá falando nisso? Queria que você me explicasse em vez de me dispensar..."
                             }
                         ]
@@ -686,7 +686,7 @@ const GAME_STORY = {
                             },
                             {
                                 speaker: "ana",
-                                emotion: "surpresa",
+                                emotion: "surpreso",
                                 text: "Sério, Lucas?! Nossa... que peso saiu das minhas costas agora. Como você descobriu isso?"
                             },
                             {
@@ -709,7 +709,7 @@ const GAME_STORY = {
         cap5_marina: [
             {
                 speaker: "marina",
-                emotion: "animada",
+                emotion: "animado",
                 text: "Lucas! Que bom que você veio! Olha a quantidade de estudantes que pararam aqui no estande para saber sobre o sarampo!"
             },
             {
@@ -735,7 +735,7 @@ const GAME_STORY = {
         cap5_camila: [
             {
                 speaker: "camila",
-                emotion: "animada",
+                emotion: "animado",
                 text: "Lucas! Que alegria te ver aqui no estande universitário! A equipe da UBS veio apoiar a campanha."
             },
             {

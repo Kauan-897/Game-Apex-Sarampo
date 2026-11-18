@@ -66,6 +66,12 @@
                         </div>
 
                         <div class="hud-buttons-row">
+                            <button id="btn-camera-toggle" class="hud-btn"
+                                title="Alternar Câmera 1ª Pessoa (3D) / 3ª Pessoa (2.5D) [Tecla V]">👁️
+                                1ª Pessoa (3D)</button>
+                            <button id="btn-inspect-phone" class="hud-btn"
+                                title="Inspecionar seus 13 Modelos 3D do Blender">📦
+                                Modelos 3D</button>
                             <button id="btn-audio-toggle" class="hud-btn" title="Ligar/Desligar Música e Efeitos">🔊
                                 Áudio ON</button>
                             <button id="btn-about" class="hud-btn" title="Controles e Sobre">ℹ️ Guia</button>
@@ -76,19 +82,15 @@
 
             <!-- Virtual On-screen D-Pad for Mobile / Accessibility -->
             <div id="virtual-controls">
-                <button class="vpad-btn" id="vbtn-up" onmousedown="window.game.engine.keys.w=true"
-                    onmouseup="window.game.engine.keys.w=false" ontouchstart="window.game.engine.keys.w=true"
-                    ontouchend="window.game.engine.keys.w=false">W</button>
                 <div class="vpad-row">
-                    <button class="vpad-btn" id="vbtn-left" onmousedown="window.game.engine.keys.a=true"
-                        onmouseup="window.game.engine.keys.a=false" ontouchstart="window.game.engine.keys.a=true"
-                        ontouchend="window.game.engine.keys.a=false">A</button>
-                    <button class="vpad-btn" id="vbtn-down" onmousedown="window.game.engine.keys.s=true"
-                        onmouseup="window.game.engine.keys.s=false" ontouchstart="window.game.engine.keys.s=true"
-                        ontouchend="window.game.engine.keys.s=false">S</button>
-                    <button class="vpad-btn" id="vbtn-right" onmousedown="window.game.engine.keys.d=true"
-                        onmouseup="window.game.engine.keys.d=false" ontouchstart="window.game.engine.keys.d=true"
-                        ontouchend="window.game.engine.keys.d=false">D</button>
+                    <button class="vpad-btn" id="vbtn-rot-left" data-key="q" title="Olhar para a Esquerda [Q]">⟲</button>
+                    <button class="vpad-btn" id="vbtn-up" data-key="w">W</button>
+                    <button class="vpad-btn" id="vbtn-rot-right" data-key="r" title="Olhar para a Direita [R]">⟳</button>
+                </div>
+                <div class="vpad-row">
+                    <button class="vpad-btn" id="vbtn-left" data-key="a">A</button>
+                    <button class="vpad-btn" id="vbtn-down" data-key="s">S</button>
+                    <button class="vpad-btn" id="vbtn-right" data-key="d">D</button>
                 </div>
             </div>
 
@@ -180,9 +182,11 @@
 
                     <div class="controls-guide-grid">
                         <span class="key-badge">W A S D</span>
-                        <span>Mover Lucas pelo cenário (cima, esquerda, baixo, direita)</span>
-                        <span class="key-badge">Setas ⬆️⬅️⬇️➡️</span>
-                        <span>Movimentação alternativa</span>
+                        <span>Andar em 1ª Pessoa pelo cenário 3D (frente, esquerda, trás, direita)</span>
+                        <span class="key-badge">Mouse / Setas ⬅️➡️ / Q R</span>
+                        <span>Girar a visão 360° (os personagens 2D viram sempre para você - Billboard)</span>
+                        <span class="key-badge">Tecla V</span>
+                        <span>Alternar entre Visão em 1ª Pessoa (3D) e 3ª Pessoa (2.5D estilo Pokémon)</span>
                         <span class="key-badge">Tecla E</span>
                         <span>Interagir com personagens e objetos ao se aproximar</span>
                         <span class="key-badge">Espaço / Clique</span>
@@ -190,12 +194,14 @@
                     </div>
 
                     <p style="font-size: 0.82rem; color: #94a3b8;">
-                        Inspirado no estilo narrativo de <em>A Vida é um Jogo</em>, com ilustrações exclusivas, cenários
-                        brasileiros cotidianos e fundamentação científica oficial do Ministério da Saúde.
+                        Com exploração 3D em 1ª pessoa e personagens em <em>Billboard 2D</em> (estilo 2.5D de Pokémon),
+                        ilustrações exclusivas, cenários brasileiros cotidianos e fundamentação científica oficial do
+                        Ministério da Saúde.
                     </p>
                     <div class="project-credits-box">
                         <span class="credits-label">👨‍💻 Desenvolvimento do Jogo:</span>
-                        <p class="credits-author"><strong>Kauan</strong> — 6º Semestre de Ciência da Computação</p>
+                        <p class="credits-author">Desenvolvido por <strong>Kauan da Silva Ribeiro</strong><br>Curso:
+                            <strong>Ciências da Computação</strong></p>
                     </div>
                     <button id="btn-close-about" class="btn-primary" style="margin-top: 8px;">Entendi, voltar ao
                         jogo</button>
@@ -206,17 +212,20 @@
             <div id="menu-screen">
                 <div class="menu-overlay-grad"></div>
                 <div class="menu-content">
-                    <span class="menu-badge">Experiência Narrativa Interativa</span>
+                    <span class="menu-badge">Experiência Narrativa 3D / 2.5D em 1ª Pessoa</span>
                     <h1 class="menu-title">SINAIS DE IMUNIDADE</h1>
                     <p class="menu-subtitle">A Jornada de Lucas contra a desinformação e em defesa da saúde coletiva.
                     </p>
                     <div class="menu-actions">
                         <button id="btn-start-game" class="btn-menu-start">▶ Iniciar Jornada</button>
-                        <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 8px;">Controles: Use <strong>[W A S
-                                D]</strong> para andar e <strong>[E]</strong> para interagir</p>
                         <div class="menu-credits-badge">
-                            Desenvolvido por <strong>Kauan</strong> • 6º Semestre Ciência da Computação
+                            👨‍💻 Desenvolvido por <strong>Kauan da Silva Ribeiro</strong><br>
+                            <span>Curso: <strong>Ciências da Computação</strong></span>
                         </div>
+                        <p style="color: #94a3b8; font-size: 0.85rem; margin-top: 4px;">Controles: <strong>[W A S
+                                D]</strong> para andar • <strong>[Mouse / Setas]</strong> para olhar 360° •
+                            <strong>[E]</strong> para interagir
+                        </p>
                     </div>
                 </div>
             </div>
@@ -261,7 +270,8 @@
 
                     <div class="ending-credits-section">
                         <h4>Desenvolvimento:</h4>
-                        <p><strong>Kauan</strong> — 6º Semestre de Ciência da Computação</p>
+                        <p>Desenvolvido por <strong>Kauan da Silva Ribeiro</strong> — Curso: <strong>Ciências da
+                                Computação</strong></p>
                     </div>
 
                     <button id="btn-restart-game" class="btn-primary" style="margin-top: 10px;">🔄 Jogar Novamente
@@ -275,6 +285,7 @@
     <!-- Scripts -->
     <script src="js/audio.js"></script>
     <script src="js/story.js"></script>
+    <script src="js/models3d.js"></script>
     <script src="js/engine.js"></script>
     <script src="js/game.js"></script>
 </body>

@@ -43,6 +43,7 @@ class GameManager {
         // About / Controls Modal
         document.getElementById('btn-about').addEventListener('click', (e) => {
             e.stopPropagation();
+            e.currentTarget.blur();
             window.soundSystem.playClick();
             if (this.engine) this.engine.setMovementLock(true);
             document.getElementById('about-modal').classList.remove('hidden');
@@ -60,9 +61,23 @@ class GameManager {
             }
         });
 
+        // Camera Mode toggle (1st Person 3D / 3rd Person 2.5D)
+        const camBtn = document.getElementById('btn-camera-toggle');
+        if (camBtn) {
+            camBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                camBtn.blur(); // Espaço não deve "re-clicar" o botão depois
+                if (window.soundSystem) window.soundSystem.playClick();
+                if (this.engine) {
+                    this.engine.toggleCameraMode();
+                }
+            });
+        }
+
         // Audio Mute toggle
         document.getElementById('btn-audio-toggle').addEventListener('click', (e) => {
             e.stopPropagation();
+            e.currentTarget.blur(); // Espaço não deve "re-clicar" o botão depois
             const muted = window.soundSystem.toggleMute();
             document.getElementById('btn-audio-toggle').textContent = muted ? '🔇 Mutado' : '🔊 Áudio ON';
         });
@@ -95,6 +110,11 @@ class GameManager {
         // Did You Know Continue button
         document.getElementById('btn-continue-chapter').addEventListener('click', (e) => {
             e.stopPropagation();
+            const btn = e.currentTarget;
+            // Evita que um clique duplo pule um capítulo inteiro
+            if (btn.disabled) return;
+            btn.disabled = true;
+            btn.blur();
             window.soundSystem.playSuccess();
             document.getElementById('did-you-know-modal').classList.add('hidden');
             this.nextChapter();
@@ -186,12 +206,15 @@ class GameManager {
 
     showToast(message) {
         const toast = document.getElementById('game-toast');
+        // Cancela os timers do toast anterior para um não esconder o outro antes da hora
+        clearTimeout(this.toastTimer);
+        clearTimeout(this.toastHideTimer);
         toast.textContent = message;
         toast.classList.remove('hidden');
         toast.classList.add('toast-active');
-        setTimeout(() => {
+        this.toastTimer = setTimeout(() => {
             toast.classList.remove('toast-active');
-            setTimeout(() => toast.classList.add('hidden'), 300);
+            this.toastHideTimer = setTimeout(() => toast.classList.add('hidden'), 300);
         }, 3200);
     }
 
@@ -397,10 +420,12 @@ class GameManager {
         document.getElementById('dialogue-name').textContent = charMeta.name;
         document.getElementById('dialogue-role').textContent = charMeta.role;
 
-        // Character portrait
-        const portraitUrl = (charMeta.portraits && charMeta.portraits[node.emotion])
-            ? charMeta.portraits[node.emotion]
-            : charMeta.avatar;
+        // Character portrait (aceita emoção no feminino: "preocupada" -> "preocupado")
+        const portraits = charMeta.portraits || {};
+        const emotion = node.emotion || '';
+        const portraitUrl = portraits[emotion]
+            || portraits[emotion.replace(/a$/, 'o')]
+            || charMeta.avatar;
         const portraitImg = document.getElementById('dialogue-portrait');
         portraitImg.src = portraitUrl;
         portraitImg.alt = `${charMeta.name} (${node.emotion || 'normal'})`;
@@ -420,6 +445,8 @@ class GameManager {
                     card.addEventListener('click', (e) => {
                         e.stopPropagation();
                         window.soundSystem.playClick();
+                        // Registra a escolha feita no diálogo (usado no cálculo dos finais)
+                        if (choice.id) this.flags[choice.id] = true;
                         this.applyStatsChange(choice.statsChange);
                         if (choice.triggerEnding) {
                             this.closeDialogue();
@@ -543,6 +570,7 @@ class GameManager {
             });
 
             document.getElementById('did-you-know-source').textContent = `Fonte Confiável: ${chapter.didYouKnow.source}`;
+            document.getElementById('btn-continue-chapter').disabled = false;
             window.soundSystem.playSuccess();
             modal.classList.remove('hidden');
         }, 500);
@@ -557,13 +585,13 @@ class GameManager {
 
         const isGoodVerification = this.stats.verification >= 5;
         const sharedInCap1 = this.flags.choice_cap1_b;
+        // Final 3 só faz sentido se Lucas realmente acolheu e corrigiu a informação com a Ana (Cap. 4)
+        const correctedWithAna = this.flags.a_admit_and_correct;
 
-        if (sharedInCap1 && this.stats.influence >= 4) {
+        if (sharedInCap1 && correctedWithAna) {
             selectedEnding = GAME_STORY.endings.ending3; // Recognized error and corrected
-        } else if (isGoodVerification && this.stats.vaccineChecked) {
-            selectedEnding = GAME_STORY.endings.ending1; // Informed & Responsible
         } else if (isGoodVerification) {
-            selectedEnding = GAME_STORY.endings.ending1;
+            selectedEnding = GAME_STORY.endings.ending1; // Informed & Responsible
         }
 
         // Render ending screen
